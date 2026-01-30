@@ -51,3 +51,40 @@ Complete machine learning pipeline for predicting `final_price_usd` in the Globa
 4. **Train-Test Split**
    - 80% training, 20% testing
    - Random state = 42 for reproducibility
+
+## Hyperparameter Tuning
+
+### Models with Parameter Grids:
+
+**Ridge:**
+- alpha: [0.1, 1.0, 10.0, 100.0, 1000.0]
+
+**Random Forest:**
+- n_estimators: [100, 200, 300]
+- max_depth: [10, 20, 30]
+- min_samples_split: [2, 5, 10]
+
+**Gradient Boosting:**
+- n_estimators: [100, 200, 300]
+- learning_rate: [0.01, 0.1, 0.2]
+- max_depth: [3, 5, 7]
+
+**XGBoost:**
+- n_estimators: [100, 200, 300]
+- learning_rate: [0.01, 0.1, 0.2]
+- max_depth: [3, 5, 7]
+
+**LightGBM:**
+- n_estimators: [100, 200, 300]
+- learning_rate: [0.01, 0.1, 0.2]
+- num_leaves: [31, 50, 70]
+
+**CatBoost:**
+- iterations: [100, 200, 300]
+- learning_rate: [0.01, 0.1, 0.2]
+- depth: [4, 6, 8]
+
+### Tuning Strategy:
+- **GridSearchCV** with 5-fold cross-validation
+- **Scoring metric:** R² score
+- **Parallel processing:** n_jobs=-1
