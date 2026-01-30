@@ -31,3 +31,23 @@ Complete machine learning pipeline for predicting `final_price_usd` in the Globa
 - **Overfitting Detection** - Train vs Test R² difference
 - **Training Time** - Model efficiency comparison
 - **Feature Importance** - SHAP values
+
+## Data Preprocessing
+
+### Steps Performed:
+1. **Missing Value Handling**
+   - Remove rows with missing target variable
+   - Fill numerical features with median
+   - Fill categorical features with 'missing' label
+
+2. **Feature Engineering**
+   - Extract date components (year, month, day, day of week, quarter)
+   - Remove non-informative columns (order_id)
+
+3. **Encoding**
+   - Label encoding for categorical variables
+   - Maintain original feature names for interpretability
+
+4. **Train-Test Split**
+   - 80% training, 20% testing
+   - Random state = 42 for reproducibility
