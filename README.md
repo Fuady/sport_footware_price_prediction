@@ -88,3 +88,21 @@ Complete machine learning pipeline for predicting `final_price_usd` in the Globa
 - **GridSearchCV** with 5-fold cross-validation
 - **Scoring metric:** R² score
 - **Parallel processing:** n_jobs=-1
+
+
+## SHAP Analysis
+
+### What is SHAP?
+SHAP (SHapley Additive exPlanations) provides model-agnostic feature importance scores based on game theory.
+
+### Visualizations Included:
+
+1. **Summary Plot (Bar)** - Overall feature importance ranking
+2. **Summary Plot (Beeswarm)** - Feature impact distribution
+3. **Feature Importance Bar Chart** - Top 20 features
+4. **Cumulative Importance** - How many features explain 80%/90% of predictions
+
+### Interpretation:
+- Higher SHAP value = greater impact on predictions
+- Color indicates feature value (red = high, blue = low)
+- Position shows impact direction (positive/negative)
