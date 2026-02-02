@@ -112,56 +112,30 @@ def load_model_artifacts():
     
     print("Loading model artifacts...")
     
-    # Define paths
-    MODEL_PATH = 'models/sport_footware_model.pkl'
-    ENCODERS_PATH = 'models/label_encoders.pkl'
-    FEATURES_PATH = 'models/feature_names.pkl'
-    METADATA_PATH = 'models/model_metadata.json'
+    # Load trained model
+    with open('models/model.pkl', 'rb') as f:
+        model = pickle.load(f)
+    print("✓ Model loaded")
     
-    try:
-        # Load trained model
-        with open(MODEL_PATH, 'rb') as f:
-            model = pickle.load(f)
-        print(f"✓ Model loaded from: {MODEL_PATH}")
-        
-        # Load label encoders
-        with open(ENCODERS_PATH, 'rb') as f:
-            label_encoders = pickle.load(f)
-        print(f"✓ Label encoders loaded from: {ENCODERS_PATH}")
-        
-        # Load feature names
-        with open(FEATURES_PATH, 'rb') as f:
-            feature_names = pickle.load(f)
-        print(f"✓ Feature names loaded from: {FEATURES_PATH}")
-        
-        # Load metadata
-        with open(METADATA_PATH, 'r') as f:
-            metadata = json.load(f)
-        print(f"✓ Metadata loaded from: {METADATA_PATH}")
-        
-        print("\n" + "="*60)
-        print("MODEL INFORMATION")
-        print("="*60)
-        print(f"Model: {metadata['model_name']}")
-        print(f"Model Type: {metadata.get('model_type', 'N/A')}")
-        print(f"Training Date: {metadata['training_date']}")
-        print(f"Test R²: {metadata['metrics']['test_r2']:.4f}")
-        print(f"Test RMSE: {metadata['metrics']['test_rmse']:.4f}")
-        print(f"Test MAE: {metadata['metrics']['test_mae']:.4f}")
-        print(f"Features: {metadata['num_features']}")
-        print(f"Training Samples: {metadata['training_samples']}")
-        print(f"Test Samples: {metadata['test_samples']}")
-        print("="*60)
-        
-    except FileNotFoundError as e:
-        print(f"\n❌ Error: Model artifacts not found!")
-        print(f"   Missing file: {e.filename}")
-        print("\n   Please run 'python train.py' first to train and save the model.")
-        print("   This will create the models/ directory with all required files.")
-        raise
-    except Exception as e:
-        print(f"\n❌ Error loading model artifacts: {e}")
-        raise
+    # Load label encoders
+    with open('models/label_encoders.pkl', 'rb') as f:
+        label_encoders = pickle.load(f)
+    print("✓ Label encoders loaded")
+    
+    # Load feature names
+    with open('models/feature_names.pkl', 'rb') as f:
+        feature_names = pickle.load(f)
+    print("✓ Feature names loaded")
+    
+    # Load metadata
+    with open('models/model_metadata.json', 'r') as f:
+        metadata = json.load(f)
+    print("✓ Metadata loaded")
+    
+    print(f"\nModel: {metadata['model_name']}")
+    print(f"Training date: {metadata['training_date']}")
+    print(f"Test R²: {metadata['best_test_r2']:.4f}")
+    print(f"Features: {len(feature_names)}")
     
 
 def preprocess_input(data):
@@ -194,6 +168,15 @@ def preprocess_input(data):
     if 'order_id' in df.columns:
         df = df.drop('order_id', axis=1)
     
+    # Remove features that contain target information
+    leaked_features = [
+        'final_price_usd',  # Target itself
+        'revenue_usd',      # This is final_price * units_sold - LEAKAGE!
+        'discount_percent'
+    ]
+
+    df = df.drop(leaked_features, axis=1)
+        
     # Encode categorical variables
     for col in label_encoders.keys():
         if col in df.columns:
@@ -250,22 +233,16 @@ def model_info():
     
     return jsonify({
         'model_name': metadata['model_name'],
-        'model_type': metadata.get('model_type', 'N/A'),
         'training_date': metadata['training_date'],
         'metrics': {
-            'test_r2': metadata['metrics']['test_r2'],
-            'test_rmse': metadata['metrics']['test_rmse'],
-            'test_mae': metadata['metrics']['test_mae'],
-            'train_r2': metadata['metrics']['train_r2'],
-            'train_rmse': metadata['metrics']['train_rmse'],
-            'train_mae': metadata['metrics']['train_mae'],
-            'overfitting_gap': metadata['metrics']['overfitting_gap']
+            'test_r2': metadata['best_test_r2'],
+            'test_rmse': metadata['best_test_rmse'],
+            'test_mae': metadata['best_test_mae']
         },
-        'training_samples': metadata['training_samples'],
+        'train_samples': metadata['train_samples'],
         'test_samples': metadata['test_samples'],
-        'num_features': metadata['num_features'],
-        'categorical_features': metadata.get('categorical_features', []),
-        'features_preview': feature_names[:10]  # Show first 10 features
+        'num_features': len(feature_names),
+        'features': feature_names[:10]  # Show first 10 features
     })
 
 
