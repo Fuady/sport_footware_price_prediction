@@ -231,10 +231,6 @@ best_idx = results_df["test_r2"].idxmax()
 results_df["is_best_model"] = False
 results_df.loc[best_idx, "is_best_model"] = True
 
-print("Model Comparison Results:")
-print("="*120)
-display(results_df.style.highlight_max(subset=['test_r2'], color='lightgreen')
-                         .highlight_min(subset=['test_rmse', 'test_mae'], color='lightgreen'))
 
 best_model_name = results_df.loc[best_idx, "model_name"]
 print(f"\n🏆 BEST MODEL: {best_model_name}")
