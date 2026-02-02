@@ -49,3 +49,11 @@ plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette('husl')
 
 print("All libraries imported successfully")
+
+# =========================
+# 1. Load data
+# =========================
+MODEL_PATH = "models/footware_model.pkl"
+
+df = pd.read_csv('./data/global_sports_footwear_sales_2018_2026.csv')
+
