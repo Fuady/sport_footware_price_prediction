@@ -241,3 +241,70 @@ print(f"\n🏆 BEST MODEL: {best_model_name}")
 print(f"   Test R²: {results_df.loc[best_idx, 'test_r2']:.4f}")
 print(f"   Test RMSE: {results_df.loc[best_idx, 'test_rmse']:.4f}")
 print(f"   Test MAE: {results_df.loc[best_idx, 'test_mae']:.4f}")
+
+
+# Save the best model
+print("\n" + "="*120)
+print("SAVING BEST MODEL")
+print("="*120)
+
+# Create models directory if it doesn't exist
+import os
+os.makedirs("models", exist_ok=True)
+
+MODEL_PATH = "models/sport_footware_model.pkl"
+
+# Get the best model
+best_model = models[best_model_name]
+
+# Save model
+with open(MODEL_PATH, 'wb') as f:
+    pickle.dump(best_model, f)
+print(f"✓ Model saved to: {MODEL_PATH}")
+
+# Save label encoders
+ENCODERS_PATH = "models/label_encoders.pkl"
+with open(ENCODERS_PATH, 'wb') as f:
+    pickle.dump(label_encoders, f)
+print(f"✓ Label encoders saved to: {ENCODERS_PATH}")
+
+# Save feature names
+FEATURES_PATH = "models/feature_names.pkl"
+with open(FEATURES_PATH, 'wb') as f:
+    pickle.dump(feature_names, f)
+print(f"✓ Feature names saved to: {FEATURES_PATH}")
+
+# Save metadata
+METADATA_PATH = "models/model_metadata.json"
+metadata = {
+    'model_name': best_model_name,
+    'model_type': type(best_model).__name__,
+    'training_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    'feature_names': feature_names,
+    'num_features': len(feature_names),
+    'metrics': {
+        'train_r2': float(results_df.loc[best_idx, 'train_r2']),
+        'test_r2': float(results_df.loc[best_idx, 'test_r2']),
+        'train_rmse': float(results_df.loc[best_idx, 'train_rmse']),
+        'test_rmse': float(results_df.loc[best_idx, 'test_rmse']),
+        'train_mae': float(results_df.loc[best_idx, 'train_mae']),
+        'test_mae': float(results_df.loc[best_idx, 'test_mae']),
+        'overfitting_gap': float(results_df.loc[best_idx, 'train_r2'] - results_df.loc[best_idx, 'test_r2'])
+    },
+    'training_samples': len(X_train),
+    'test_samples': len(X_test),
+    'categorical_features': list(label_encoders.keys())
+}
+
+with open(METADATA_PATH, 'w') as f:
+    json.dump(metadata, f, indent=4)
+print(f"✓ Metadata saved to: {METADATA_PATH}")
+
+print("\n" + "="*120)
+print("MODEL ARTIFACTS SAVED SUCCESSFULLY!")
+print("="*120)
+print("\nSaved files:")
+print(f"  1. {MODEL_PATH} - Trained model")
+print(f"  2. {ENCODERS_PATH} - Label encoders for categorical features")
+print(f"  3. {FEATURES_PATH} - List of feature names")
+print(f"  4. {METADATA_PATH} - Model metadata and metrics")
