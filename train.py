@@ -185,3 +185,59 @@ for name, model in regressors:
         print(f"✗ Failed: {e}")
 
 print(f"\n✓ Successfully trained {len(trained_models)} models")
+
+rows = []
+
+for res in model_results:
+    # Metrics
+    train_rmse = np.sqrt(mean_squared_error(res['y_train'], res['y_train_pred']))
+    test_rmse = np.sqrt(mean_squared_error(res['y_test'], res['y_test_pred']))
+    
+    train_mae = mean_absolute_error(res['y_train'], res['y_train_pred'])
+    test_mae = mean_absolute_error(res['y_test'], res['y_test_pred'])
+    
+    train_r2 = r2_score(res['y_train'], res['y_train_pred'])
+    test_r2 = r2_score(res['y_test'], res['y_test_pred'])
+    
+    try:
+        train_mape = mean_absolute_percentage_error(res['y_train'], res['y_train_pred']) * 100
+        test_mape = mean_absolute_percentage_error(res['y_test'], res['y_test_pred']) * 100
+    except:
+        train_mape = np.nan
+        test_mape = np.nan
+    
+    diff_r2 = train_r2 - test_r2
+    is_overfitting = diff_r2 > 0.15
+    
+    rows.append({
+        "model_name": res["model_name"],
+        "runtime": round(res["runtime"], 3),
+        "train_rmse": round(train_rmse, 4),
+        "test_rmse": round(test_rmse, 4),
+        "train_mae": round(train_mae, 4),
+        "test_mae": round(test_mae, 4),
+        "train_r2": round(train_r2, 4),
+        "test_r2": round(test_r2, 4),
+        "train_mape": round(train_mape, 4),
+        "test_mape": round(test_mape, 4),
+        "r2_diff": round(diff_r2, 4),
+        "is_overfitting": is_overfitting
+    })
+
+results_df = pd.DataFrame(rows)
+
+# Mark best model
+best_idx = results_df["test_r2"].idxmax()
+results_df["is_best_model"] = False
+results_df.loc[best_idx, "is_best_model"] = True
+
+print("Model Comparison Results:")
+print("="*120)
+display(results_df.style.highlight_max(subset=['test_r2'], color='lightgreen')
+                         .highlight_min(subset=['test_rmse', 'test_mae'], color='lightgreen'))
+
+best_model_name = results_df.loc[best_idx, "model_name"]
+print(f"\n🏆 BEST MODEL: {best_model_name}")
+print(f"   Test R²: {results_df.loc[best_idx, 'test_r2']:.4f}")
+print(f"   Test RMSE: {results_df.loc[best_idx, 'test_rmse']:.4f}")
+print(f"   Test MAE: {results_df.loc[best_idx, 'test_mae']:.4f}")
