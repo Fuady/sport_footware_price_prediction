@@ -1,0 +1,29 @@
+{
+    "model_name": "GradientBoosting",
+    "feature_names": [
+        "brand",
+        "model_name",
+        "category",
+        "gender",
+        "size",
+        "color",
+        "base_price_usd",
+        "units_sold",
+        "payment_method",
+        "sales_channel",
+        "country",
+        "customer_income_level",
+        "customer_rating",
+        "year",
+        "month",
+        "day",
+        "day_of_week",
+        "quarter"
+    ],
+    "training_date": "2026-02-02 16:42:42",
+    "train_samples": 24000,
+    "test_samples": 6000,
+    "best_test_r2": 0.9527525095002987,
+    "best_test_rmse": 39.0153806045226,
+    "best_test_mae": 28.441882057123056
+}
