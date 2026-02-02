@@ -133,3 +133,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 print(f"Train set: {X_train.shape[0]} samples")
 print(f"Test set: {X_test.shape[0]} samples")
 print(f"Features: {X_train.shape[1]}")
+
+# =========================
+# 4. Training Model
+# =========================
