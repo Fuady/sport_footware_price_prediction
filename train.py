@@ -137,3 +137,51 @@ print(f"Features: {X_train.shape[1]}")
 # =========================
 # 4. Training Model
 # =========================
+
+# Define regressors
+regressors = [
+    ['Ridge', Ridge(random_state=42)],
+    ['Lasso', Lasso(random_state=42, max_iter=5000)],
+    ['ElasticNet', ElasticNet(random_state=42, max_iter=5000)],
+    ['GradientBoosting', GradientBoostingRegressor(random_state=42)],
+    ['XGBoost', XGBRegressor(random_state=42, n_jobs=-1, verbosity=0)],
+    ['LightGBM', LGBMRegressor(random_state=42, n_jobs=-1, verbose=-1)],
+    ['CatBoost', CatBoostRegressor(random_state=42, verbose=0)]
+]
+
+model_results = []
+trained_models = {}
+
+print("Training models...\n")
+
+for name, model in regressors:
+    print(f"Training {name}...", end=' ')
+    start_time = time.time()
+    
+    try:
+        # Train
+        model.fit(X_train, y_train)
+        runtime = time.time() - start_time
+        
+        # Predictions
+        y_train_pred = model.predict(X_train)
+        y_test_pred = model.predict(X_test)
+        
+        # Store
+        model_results.append({
+            "model_name": name,
+            "model": model,
+            "runtime": runtime,
+            "y_train": y_train,
+            "y_test": y_test,
+            "y_train_pred": y_train_pred,
+            "y_test_pred": y_test_pred
+        })
+        
+        trained_models[name] = model
+        print(f"✓ ({runtime:.2f}s)")
+        
+    except Exception as e:
+        print(f"✗ Failed: {e}")
+
+print(f"\n✓ Successfully trained {len(trained_models)} models")
