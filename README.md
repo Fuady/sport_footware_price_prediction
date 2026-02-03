@@ -99,6 +99,33 @@ sport_footware_price_prediction/
    - 80% training, 20% testing
    - Random state = 42 for reproducibility
 
+###  **Feature Analysis**
+
+**Categorical Features:**
+- `region`: Geographic distribution of sales
+- `brand`: Brand-wise price variations
+- `product_category`: Category-specific pricing patterns
+- `retailer`: Retailer impact on pricing
+- `distribution_channel`: Online vs offline pricing differences
+
+**Numerical Features:**
+- `units_sold`: Correlation with pricing
+- `discount_percentage`: Impact on final price
+- `rating`: Quality indicator
+- Date features: Temporal patterns
+
+###  **Feature Importance Analysis**
+Conducted using multiple methods:
+- **Correlation Analysis**: Heatmaps showing feature relationships
+- **SHAP Values**: Model-agnostic feature importance
+- **Tree-based Importance**: Feature importance from ensemble models
+
+###  **Key Insights**
+- Strong seasonal patterns in pricing
+- Regional variations significantly impact prices
+- Brand and product category are top price drivers
+- Discount strategies vary by distribution channel
+
 ## Hyperparameter Tuning
 
 ### Models with Parameter Grids:
