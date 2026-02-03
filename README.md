@@ -126,6 +126,24 @@ Conducted using multiple methods:
 - Brand and product category are top price drivers
 - Discount strategies vary by distribution channel
 
+
+## Model Training
+
+### Models Trained
+
+We trained and compared **7 different regression models**:
+
+| Model | Type | Description |
+|-------|------|-------------|
+| **Ridge** | Linear | L2 regularization for feature stability |
+| **Lasso** | Linear | L1 regularization for feature selection |
+| **ElasticNet** | Linear | Combined L1 + L2 regularization |
+| **Gradient Boosting** | Tree-based | Sequential ensemble learning |
+| **XGBoost** | Tree-based | Optimized gradient boosting |
+| **LightGBM** | Tree-based | Fast gradient boosting framework |
+| **CatBoost** | Tree-based | Gradient boosting for categorical features |
+
+
 ## Hyperparameter Tuning
 
 ### Models with Parameter Grids:
