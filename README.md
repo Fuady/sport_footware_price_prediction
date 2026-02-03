@@ -21,7 +21,7 @@ We've developed an end-to-end machine learning solution that:
 ### Dataset
 - **Source**: [Global Sports Footwear Sales (2018-2026)](https://www.kaggle.com/datasets/aliiihussain/sports-footwear-sales-and-consumer-behavior)
 - **Size**: Multiple features across temporal, categorical, and numerical dimensions
-- **Target Variable**: `final_price_usd` - the final selling price of footwear products
+- **Target Variable**: `revenue_usd` - Total revenue for the footwear products
 - **Features**: Product details, regional data, retailer information, date features, and more
 
 
