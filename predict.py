@@ -253,13 +253,7 @@ def predict():
     
     Expected JSON format:
     {
-        "data": [
-            {
-                "feature1": value1,
-                "feature2": value2,
-                ...
-            }
-        ]
+
     }
     
     Or for single prediction:
