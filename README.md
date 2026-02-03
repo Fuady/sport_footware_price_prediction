@@ -236,3 +236,130 @@ pip install -r requirements.txt
 ```bash
 python -c "import pandas, sklearn, xgboost, lightgbm, catboost; print('All dependencies installed successfully!')"
 ```
+
+
+## 🌐 Model Deployment
+
+### Local Deployment
+
+The model is deployed as a **Flask REST API** that can be run locally:
+
+```bash
+# Start the API server
+python predict.py
+```
+
+The server will start on `http://0.0.0.0:5000`
+
+### API Features
+- ✅ RESTful design
+- ✅ JSON request/response format
+- ✅ Single and batch predictions
+- ✅ Health check endpoint
+- ✅ Model metadata endpoint
+- ✅ Error handling
+- ✅ Input validation
+
+### Production Deployment Options
+
+#### 1. **Using Gunicorn (Production WSGI Server)**
+```bash
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 predict:app
+```
+
+#### 2. **Using Docker** (See Containerization section)
+
+#### 3. **Using Cloud Services** (See Cloud Deployment section)
+
+---
+
+## 🐳 Containerization
+
+### Docker Setup
+
+#### Building the Docker Image
+
+```bash
+# Build the image
+docker build -t sport-footwear-predictor .
+
+# Verify the image
+docker images | grep sport-footwear-predictor
+```
+
+#### Running the Container
+
+**Option 1: Run Prediction API**
+```bash
+docker run -p 5000:5000 sport-footwear-predictor
+```
+
+**Option 2: Train Model in Container**
+```bash
+docker run sport-footwear-predictor python train.py
+```
+
+**Option 3: Interactive Mode**
+```bash
+docker run -it sport-footwear-predictor /bin/bash
+```
+
+#### Docker Commands
+
+```bash
+# Run with volume mounting (for persistent data)
+docker run -p 5000:5000 \
+  -v $(pwd)/data:/app/data \
+  -v $(pwd)/models:/app/models \
+  sport-footwear-predictor
+
+# Run in detached mode
+docker run -d -p 5000:5000 --name footwear-api sport-footwear-predictor
+
+# View logs
+docker logs footwear-api
+
+# Stop container
+docker stop footwear-api
+
+# Remove container
+docker rm footwear-api
+```
+
+#### Testing the Dockerized API
+
+```bash
+# Health check
+curl http://localhost:5000/health
+
+# Make prediction
+curl -X POST http://localhost:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"data": {"brand": "Nike", "region": "US", ...}}'
+```
+
+### Docker Compose (Optional)
+
+Create `docker-compose.yml`:
+
+```yaml
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+```
+
+Run with:
+```bash
+docker-compose up -d
+```
