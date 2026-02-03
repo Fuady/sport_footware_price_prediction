@@ -198,3 +198,41 @@ SHAP (SHapley Additive exPlanations) provides model-agnostic feature importance 
 - Higher SHAP value = greater impact on predictions
 - Color indicates feature value (red = high, blue = low)
 - Position shows impact direction (positive/negative)
+
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+- Python 3.9 or higher
+- pip package manager
+- Virtual environment (recommended)
+
+### Option 1: Local Setup (Recommended)
+
+#### Step 1: Clone the Repository
+```bash
+git clone https://github.com/Fuady/sport_footware_price_prediction.git
+cd sport_footware_price_prediction
+```
+
+#### Step 2: Create Virtual Environment
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Linux/Mac:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+```
+
+#### Step 3: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+#### Step 4: Verify Installation
+```bash
+python -c "import pandas, sklearn, xgboost, lightgbm, catboost; print('All dependencies installed successfully!')"
+```
