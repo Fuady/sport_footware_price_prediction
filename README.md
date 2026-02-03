@@ -1,4 +1,4 @@
-# Sport Footware Price Prediction
+# Sport Footware Revenue Prediction
 
 ## 🎯 Problem Description
 
