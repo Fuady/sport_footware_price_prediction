@@ -54,6 +54,31 @@ We've developed an end-to-end machine learning solution that:
 - **Training Time** - Model efficiency comparison
 - **Feature Importance** - SHAP values
 
+
+## 📁 Project Structure
+
+```
+sport_footware_price_prediction/
+│
+├── data/
+│   └── Global_Sports_Footwear_Sales.csv    # Dataset
+│
+├── notebook.ipynb                           # EDA and experimentation
+├── train.py                                 # Training script
+├── predict.py                               # Flask API for predictions
+├── prediction_test.ipynb                    # Testing notebook
+│
+├── model.pkl                                # Trained model (generated)
+├── label_encoders.pkl                       # Categorical encoders (generated)
+├── feature_names.pkl                        # Feature list (generated)
+├── model_metadata.json                      # Model metadata (generated)
+│
+├── requirements.txt                         # Python dependencies
+├── Dockerfile                               # Container configuration
+├── README.md                                # Documentation
+└── .gitignore                               # Git ignore rules
+```
+
 ## Data Preprocessing
 
 ### Steps Performed:
