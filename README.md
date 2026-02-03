@@ -19,7 +19,7 @@ We've developed an end-to-end machine learning solution that:
 4. **Market Analysis**: Understand factors driving footwear prices
 
 ### Dataset
-- **Source**: Global Sports Footwear Sales (2018-2026)
+- **Source**: [Global Sports Footwear Sales (2018-2026)](https://www.kaggle.com/datasets/aliiihussain/sports-footwear-sales-and-consumer-behavior)
 - **Size**: Multiple features across temporal, categorical, and numerical dimensions
 - **Target Variable**: `final_price_usd` - the final selling price of footwear products
 - **Features**: Product details, regional data, retailer information, date features, and more
