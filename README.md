@@ -1,7 +1,29 @@
 # Sport Footware Price Prediction
 
-## Overview
-Complete machine learning pipeline for predicting `revenue_usd` in the Global Sports Footwear Sales dataset (2018-2026).
+## 🎯 Problem Description
+
+### Business Context
+The global sports footwear market is highly competitive, with revenue optimization being crucial for success. This project addresses the challenge of **predicting final product revenues** for sports footwear based on various product features, market conditions, and temporal factors.
+
+### Solution
+We've developed an end-to-end machine learning solution that:
+- **Predicts `revenue_usd`** for sports footwear products
+- Analyzes multiple features including product attributes, regions, retailers, and temporal patterns
+- Provides both batch and real-time predictions via a REST API
+- Achieves **high accuracy** (R² > 0.95) using ensemble methods
+
+### Use Cases
+1. **Pricing Strategy**: Help retailers optimize pricing decisions
+2. **Revenue Forecasting**: Predict future revenue based on product catalog
+3. **Inventory Planning**: Estimate product values for inventory management
+4. **Market Analysis**: Understand factors driving footwear prices
+
+### Dataset
+- **Source**: Global Sports Footwear Sales (2018-2026)
+- **Size**: Multiple features across temporal, categorical, and numerical dimensions
+- **Target Variable**: `final_price_usd` - the final selling price of footwear products
+- **Features**: Product details, regional data, retailer information, date features, and more
+
 
 ## Objectives
 - Train and compare **7 regression models**
