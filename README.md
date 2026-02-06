@@ -200,7 +200,7 @@ SHAP (SHapley Additive exPlanations) provides model-agnostic feature importance 
 - Position shows impact direction (positive/negative)
 
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 - Python 3.9 or higher
