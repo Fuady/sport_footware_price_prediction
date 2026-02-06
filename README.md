@@ -238,7 +238,7 @@ python -c "import pandas, sklearn, xgboost, lightgbm, catboost; print('All depen
 ```
 
 
-## 🌐 Model Deployment
+## Model Deployment
 
 ### Local Deployment
 
