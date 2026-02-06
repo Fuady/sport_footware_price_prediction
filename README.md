@@ -1,6 +1,6 @@
 # Sport Footware Revenue Prediction
 
-## 🎯 Problem Description
+## Problem Description
 
 ### Business Context
 The global sports footwear market is highly competitive, with revenue optimization being crucial for success. This project addresses the challenge of **predicting final product revenues** for sports footwear based on various product features, market conditions, and temporal factors.
