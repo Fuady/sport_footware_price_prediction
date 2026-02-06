@@ -55,7 +55,7 @@ We've developed an end-to-end machine learning solution that:
 - **Feature Importance** - SHAP values
 
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sport_footware_price_prediction/
